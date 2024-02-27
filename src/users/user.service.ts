@@ -4,6 +4,8 @@ import { User, UserDocument } from "./schemas/user.schema";
 import mongoose, { models, } from 'mongoose'
 import { MongooseModel } from "../shared/types";
 import { UserDto } from "./dto/user.dto";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private readonly UserModel:MongooseModel<UserDocument>) {
@@ -19,11 +21,11 @@ export class UserService {
     return new UserDto(user)
   }
   
-  async create( dto: any ) {
+  async create( dto: CreateUserDto ) {
     return this.UserModel.create(dto)
   }
   
-  update( id: string, dto: any ) {
+  update( id: string, dto: UpdateUserDto ) {
     this.UserModel.findByIdAndUpdate(id, dto)
     return
   }
